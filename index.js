@@ -66,9 +66,7 @@ svg
 svg
   .append("path")
   .datum(data)
-  .attr("fill", "none")
-  .attr("stroke", "steelblue")
-  .attr("stroke-width", 1.5)
+  .attr("class","line")
   .attr(
     "d",
     d3
