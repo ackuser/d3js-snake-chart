@@ -39,28 +39,14 @@ console.log(xData);
 console.log(d3.extent(xData));
 
 // Add X axis --> it is a date format
-var x = d3
-  .scaleBand()
-  .domain(xData)
-  .range([0, width]);
-svg
-  .append("g")
-  .attr("transform", "translate(0," + height + ")")
-  .call(d3.axisBottom(x));
+const xScale = d3.scaleBand().domain(xData).range([0, width]);
+
+//svg.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(x));
 
 // Add Y axis
-var y = d3
-  .scaleLinear()
-  .domain([-10, 80])
-  .range([height, 0]);
-svg.append("g").call(d3.axisLeft(y));
+const yScale = d3.scaleLinear().domain([-10, 80]).range([height, 0]);
 
-// Show confidence interval
-svg
-  .append("path")
-  .datum(data)
-  .attr("fill", "#cce5df")
-  .attr("stroke", "none");
+//svg.append("g").call(d3.axisLeft(y));
 
 // Add the line
 svg
@@ -71,8 +57,8 @@ svg
     "d",
     d3
       .line()
-      .x(d => x(d.x))
-      .y(d => y(d.y))
+      .x(d => xScale(d.x))
+      .y(d => yScale(d.y))
       .curve(d3.curveNatural)
   )
   .style("filter", "url(#drop-shadow)");
