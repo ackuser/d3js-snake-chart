@@ -14,9 +14,11 @@ body {
     }
 
     .line {
-        fill: gray;
-        //stroke: steelblue;
-        //stroke-width: 8.5;
+        fill: none;
+        stroke: url(#mainGradient);
+        stroke-width: 6.5;
+
+
     }
 
     .stop-left {
@@ -31,11 +33,12 @@ body {
 
     .filled {
         fill: url(#mainGradient);
+        stroke-width: 6.5;
     }
 
     .outlined {
         fill: none;
         stroke: url(#mainGradient);
-        stroke-width: 4;
+        stroke-width: 6.5;
     }
 }

@@ -67,8 +67,8 @@ svg
       .y(d => yScale(d.y))
       .curve(d3.curveNatural)
   )
-  .classed("filled", true)
-  .classed("outlined", true)
+  //.classed("filled", true)
+  //.classed("outlined", true)
   .style("filter", "url(#drop-shadow)");
 
 const defs = svg.append("defs");
@@ -112,9 +112,17 @@ const mainGradient = defs.append("linearGradient").attr("id", "mainGradient");
 mainGradient
   .append("stop")
   .attr("class", "stop-left")
-  .attr("offset", "0");
+  .attr("offset", "0")
+  .attr("stop-opacity", 0.6);
 
 mainGradient
   .append("stop")
   .attr("class", "stop-right")
-  .attr("offset", "1");
+  .attr("offset", "1")
+  .attr("stop-opacity", 0.3);
+
+mainGradient
+  .transition()
+  .duration(1000)
+  .ease(d3.easeLinear)
+  .attr("gradientTransform", "rotate(90)");
