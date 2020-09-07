@@ -4,12 +4,12 @@ import "./style.scss";
 import * as d3 from "d3";
 
 // Write Javascript code!
-var margin = { top: 10, right: 10, bottom: 10, left: 10 },
+const margin = { top: 0, right: 20, bottom: 0, left: 0 },
   width = 460 - margin.left - margin.right,
   height = 400 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
-var svg = d3
+const svg = d3
   .select("#dataviz")
   .append("svg")
   .attr("width", width + margin.left + margin.right)
@@ -66,40 +66,49 @@ svg
 svg
   .append("path")
   .datum(data)
-  .attr("class","line")
+  .attr("class", "line")
   .attr(
     "d",
     d3
       .line()
-      .x(d => {
-        return x(d.x);
-      })
-      .y(d => {
-        return y(d.y);
-      })
-      .curve(d3.curveNatural) // apply smoothing to the line
- ).style("filter", "url(#drop-shadow)")
+      .x(d => x(d.x))
+      .y(d => y(d.y))
+      .curve(d3.curveNatural)
+  )
+  .style("filter", "url(#drop-shadow)");
 
+const defs = svg.append("defs");
 
-  const defs = svg.append("defs");
+const filter = defs.append("filter").attr("id", "drop-shadow");
 
-    const filter = defs.append("filter")
-      .attr("id", "drop-shadow")
+filter
+  .append("feGaussianBlur")
+  .attr("in", "SourceAlpha")
+  .attr("stdDeviation", 2)
+  .attr("result", "blur");
 
-    filter.append("feGaussianBlur")
-      .attr("in", "SourceAlpha")
-      .attr("stdDeviation", 2)
-      .attr("result", "blur");
+filter
+  .append("feOffset")
+  .attr("in", "blur")
+  .attr("dx", 4)
+  .attr("dy", 10)
+  .attr("result", "offsetBlur");
 
-    filter.append("feOffset")
-      .attr("in", "blur")
-      .attr("dx", 4)
-      .attr("dy", 10)
-      .attr("result", "offsetBlur");
+filter
+  .append("feFlood")
+  .attr("in", "offsetBlur")
+  .attr("flood-color", "#3d3d3d")
+  .attr("flood-opacity", "0.5")
+  .attr("result", "offsetColor");
 
-    const feMerge = filter.append("feMerge");
+filter
+  .append("feComposite")
+  .attr("in", "offsetColor")
+  .attr("in2", "offsetBlur")
+  .attr("operator", "in")
+  .attr("result", "offsetBlur");
 
-    feMerge.append("feMergeNode")
-      .attr("in", "offsetBlur")
-    feMerge.append("feMergeNode")
-      .attr("in", "SourceGraphic");
+const feMerge = filter.append("feMerge");
+
+feMerge.append("feMergeNode").attr("in", "offsetBlur");
+feMerge.append("feMergeNode").attr("in", "SourceGraphic");
