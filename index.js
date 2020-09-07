@@ -4,7 +4,7 @@ import "./style.scss";
 import * as d3 from "d3";
 
 // Write Javascript code!
-var margin = { top: 10, right: 30, bottom: 30, left: 60 },
+var margin = { top: 10, right: 10, bottom: 10, left: 10 },
   width = 460 - margin.left - margin.right,
   height = 400 - margin.top - margin.bottom;
 
@@ -78,4 +78,28 @@ svg
         return y(d.y);
       })
       .curve(d3.curveNatural) // apply smoothing to the line
-  );
+ ).style("filter", "url(#drop-shadow)")
+
+
+  const defs = svg.append("defs");
+
+    const filter = defs.append("filter")
+      .attr("id", "drop-shadow")
+
+    filter.append("feGaussianBlur")
+      .attr("in", "SourceAlpha")
+      .attr("stdDeviation", 2)
+      .attr("result", "blur");
+
+    filter.append("feOffset")
+      .attr("in", "blur")
+      .attr("dx", 4)
+      .attr("dy", 10)
+      .attr("result", "offsetBlur");
+
+    const feMerge = filter.append("feMerge");
+
+    feMerge.append("feMergeNode")
+      .attr("in", "offsetBlur")
+    feMerge.append("feMergeNode")
+      .attr("in", "SourceGraphic");
