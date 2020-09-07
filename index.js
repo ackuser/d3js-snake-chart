@@ -39,12 +39,18 @@ console.log(xData);
 console.log(d3.extent(xData));
 
 // Add X axis --> it is a date format
-const xScale = d3.scaleBand().domain(xData).range([0, width]);
+const xScale = d3
+  .scaleBand()
+  .domain(xData)
+  .range([0, width]);
 
 //svg.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(x));
 
 // Add Y axis
-const yScale = d3.scaleLinear().domain([-10, 80]).range([height, 0]);
+const yScale = d3
+  .scaleLinear()
+  .domain([-10, 80])
+  .range([height, 0]);
 
 //svg.append("g").call(d3.axisLeft(y));
 
@@ -61,6 +67,8 @@ svg
       .y(d => yScale(d.y))
       .curve(d3.curveNatural)
   )
+  .classed("filled", true)
+  .classed("outlined", true)
   .style("filter", "url(#drop-shadow)");
 
 const defs = svg.append("defs");
@@ -98,3 +106,15 @@ const feMerge = filter.append("feMerge");
 
 feMerge.append("feMergeNode").attr("in", "offsetBlur");
 feMerge.append("feMergeNode").attr("in", "SourceGraphic");
+
+const mainGradient = defs.append("linearGradient").attr("id", "mainGradient");
+
+mainGradient
+  .append("stop")
+  .attr("class", "stop-left")
+  .attr("offset", "0");
+
+mainGradient
+  .append("stop")
+  .attr("class", "stop-right")
+  .attr("offset", "1");
