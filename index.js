@@ -56,35 +56,35 @@ const xAxis = svg
   //.call(d3.axisBottom(xScale))
   .call(xAxisGenerator);
 
-Array(data.length)
-  .fill()
-  .map((_, i) => {
-    const barBg = svg
-      .append("rect")
-      .attr("y", 0)
-      .attr("height", height)
-      .attr("x", xScale(i))
-      .attr("width", xScale.bandwidth())
-
-    if (i % 2 == 0) {
-      barBg
-        .attr("fill", "#461981")
-        .attr("opacity", 0.8);
-    } else {
-      barBg
-        .attr("fill", "#601C96")
-        .attr("opacity", 0.8);
-    }
-  });
-
-
 // Add Y axis
 const yScale = d3
   .scaleLinear()
   .domain([-10, 80])
   .range([height, 0]);
 
-//svg.append("g").call(d3.axisLeft(y));
+svg.append("g").call(d3.axisLeft(yScale));
+
+
+
+const barBgHeight = yScale(data[1].y) - yScale(data[0].y);
+
+const barBg = svg
+  .append("rect")
+  .datum(data)
+  .attr("x", 0)
+  .attr("width", width)
+  .attr("y", d => yScale(d.y))
+  .attr("height", barBgHeight);
+
+barBg
+  .attr("fill", (d, i) => {
+    let result = "#461981";
+    if (i % 2 == 0) {
+      ("#601C96");
+    }
+    return result;
+  })
+  .attr("opacity", 0.8);
 
 // Add the line
 svg
