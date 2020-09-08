@@ -66,14 +66,17 @@ svg.append("g").call(d3.axisLeft(yScale));
 
 
 
-const barBgHeight = yScale(data[1].y) - yScale(data[0].y);
+//const barBgHeight = Math.abs(yScale(data[1].y) - yScale(data[0].y));
+const barBgHeight = Math.abs(yScale(10));
+
+console.log(data[0].y, data[1].y, barBgHeight)
 
 const barBg = svg
   .append("rect")
   .datum(data)
   .attr("x", 0)
   .attr("width", width)
-  .attr("y", d => yScale(d.y))
+  .attr("y", (d,i) => yScale(i))
   .attr("height", barBgHeight);
 
 barBg
