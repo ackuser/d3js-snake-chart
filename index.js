@@ -44,7 +44,10 @@ const xScale = d3
   .domain(xData)
   .range([0, width]);
 
-const xAxisGenerator = d3.axisBottom(xScale);
+const xAxisGenerator = d3
+  .axisBottom(xScale)
+  .tickSize(-height)
+  .tickFormat("");
 
 const xAxis = svg
   .append("g")
@@ -53,22 +56,19 @@ const xAxis = svg
   //.call(d3.axisBottom(xScale))
   .call(xAxisGenerator);
 
-var redBox = svg.append("rect")
-    .attr("x", xScale(200) + xScale.bandwidth() / 2)
-    .attr("y", 0)
-    .attr("width", xScale(x.domain()[x.domain().length - 1]) - xScale(200) + xScale.bandwidth() / 2)
-    .attr("height", height)
-    .attr("fill", "red")
-    .attr("opacity", 0.2);
-
-
-xAxis.selectAll(".tick line")
-     .attr("stroke","steelBlue");
-
-     xAxis.select(".domain")
-     .attr("stroke","#E04836")
-     .attr("stroke-width","6")
-     .attr("opacity",".6");
+var redBox = svg
+  .append("rect")
+  .attr("x", xScale(200) + xScale.bandwidth() / 2)
+  .attr("y", 0)
+  .attr(
+    "width",
+    xScale(xScale.domain()[xScale.domain().length - 1]) -
+      xScale(200) +
+      xScale.bandwidth() / 2
+  )
+  .attr("height", height)
+  .attr("fill", "red")
+  .attr("opacity", 0.2);
 
 // Add Y axis
 const yScale = d3

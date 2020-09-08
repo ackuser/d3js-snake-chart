@@ -17,8 +17,6 @@ body {
         fill: none;
         stroke: url(#mainGradient);
         stroke-width: 6.5;
-
-
     }
 
     .stop-left {
@@ -44,19 +42,17 @@ body {
 
     .axis path {
   fill: none;
-  stroke: #000;
+  stroke: #110224;
   stroke-width: 2.5px;
   shape-rendering: crispEdges;
+
+  &:nth-child(odd) {fill: lime}
+  &:nth-child(even) {fill: pink}
 }
  .axis line {
   fill: none;
   stroke: green;
   stroke-width: 1.6px;
-}
-
-.axis .minor {
-  stroke: red;
-  stroke-width: 0.4px;
 }
   
 }
