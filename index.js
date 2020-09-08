@@ -44,7 +44,31 @@ const xScale = d3
   .domain(xData)
   .range([0, width]);
 
-//svg.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(x));
+const xAxisGenerator = d3.axisBottom(xScale);
+
+const xAxis = svg
+  .append("g")
+  .attr("class", "x axis")
+  .attr("transform", "translate(0," + height + ")")
+  //.call(d3.axisBottom(xScale))
+  .call(xAxisGenerator);
+
+var redBox = svg.append("rect")
+    .attr("x", xScale(200) + xScale.bandwidth() / 2)
+    .attr("y", 0)
+    .attr("width", xScale(x.domain()[x.domain().length - 1]) - xScale(200) + xScale.bandwidth() / 2)
+    .attr("height", height)
+    .attr("fill", "red")
+    .attr("opacity", 0.2);
+
+
+xAxis.selectAll(".tick line")
+     .attr("stroke","steelBlue");
+
+     xAxis.select(".domain")
+     .attr("stroke","#E04836")
+     .attr("stroke-width","6")
+     .attr("opacity",".6");
 
 // Add Y axis
 const yScale = d3

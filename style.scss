@@ -41,4 +41,22 @@ body {
         stroke: url(#mainGradient);
         stroke-width: 6.5;
     }
+
+    .axis path {
+  fill: none;
+  stroke: #000;
+  stroke-width: 2.5px;
+  shape-rendering: crispEdges;
+}
+ .axis line {
+  fill: none;
+  stroke: green;
+  stroke-width: 1.6px;
+}
+
+.axis .minor {
+  stroke: red;
+  stroke-width: 0.4px;
+}
+  
 }
