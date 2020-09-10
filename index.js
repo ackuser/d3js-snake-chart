@@ -73,23 +73,19 @@ console.log(yScale(0) - yScale(10));
 
 const barBg = svg
   .selectAll("rect")
-  .data([data])
+  .data(yData)
+  .enter()
   .append("rect")
   .attr("x", 0)
   .attr("width", width)
-  .attr("y", (d, i) => {
-    console.log("----y----");
-    console.log(d);
-    console.log(i);
-    return yScale(i * 10);
-  })
+  .attr("y", (d, i) => yScale(i * 10))
   .attr("height", barBgHeight);
 
 barBg
   .attr("fill", (d, i) => {
     let result = "#461981";
     if (i % 2 == 0) {
-      ("#601C96");
+      result = "#601C96";
     }
     return result;
   })
