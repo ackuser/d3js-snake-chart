@@ -150,13 +150,13 @@ mainGradient
   .append("stop")
   .attr("class", "stop-left")
   .attr("offset", "0")
-  .attr("stop-opacity", 0.6);
+//  .attr("stop-opacity", 0.6);
 
 mainGradient
   .append("stop")
   .attr("class", "stop-right")
   .attr("offset", "1")
-  .attr("stop-opacity", 0.3);
+  //.attr("stop-opacity", 0.3);
 
 mainGradient
   .transition()
