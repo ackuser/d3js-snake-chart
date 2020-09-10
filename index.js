@@ -47,7 +47,7 @@ const xScale = d3
 const xAxisGenerator = d3
   .axisBottom(xScale)
   .tickSize(-height)
-  .tickFormat("");
+  .tickFormat("dfgfd");
 
 const xAxis = svg
   .append("g")
@@ -64,19 +64,25 @@ const yScale = d3
 
 svg.append("g").call(d3.axisLeft(yScale));
 
-
-
 //const barBgHeight = Math.abs(yScale(data[1].y) - yScale(data[0].y));
-const barBgHeight = Math.abs(yScale(10));
+const barBgHeight = Math.abs(yScale(10) - yScale(0));
 
-console.log(data[0].y, data[1].y, barBgHeight)
+console.log(data[0].y, data[1].y, barBgHeight);
+
+console.log(yScale(0) - yScale(10));
 
 const barBg = svg
+  .selectAll("rect")
+  .data([data])
   .append("rect")
-  .datum(data)
   .attr("x", 0)
   .attr("width", width)
-  .attr("y", (d,i) => yScale(i))
+  .attr("y", (d, i) => {
+    console.log("----y----");
+    console.log(d);
+    console.log(i);
+    return yScale(i * 10);
+  })
   .attr("height", barBgHeight);
 
 barBg
